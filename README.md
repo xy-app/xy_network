@@ -1,11 +1,11 @@
 # 📡 官方高级网络与流媒体套件 (Network & Downloader Suite)
 
-[![Plugin Version](https://img.shields.io/badge/version-0.49.1-blue.svg)](manifest_12.json)
+[![Plugin Version](https://img.shields.io/badge/version-0.49.1-blue.svg)](manifest.json)
 [![Group](https://img.shields.io/badge/group-Network-indigo.svg)](#)
 [![Platform](https://img.shields.io/badge/platform-All-green.svg)](#)
-[![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](#)
+[![License](https://img.shields.io/badge/license-Freeware-brightgreen.svg)](#)
 
-工业级跨平台全栈网络通信、流媒体抓取与分布式数据传输套件。涵盖工业级 RESTful API 旗舰客户端、HTTP 回调监听服务 (Webhook)、底层 TCP/UDP 套接字连接池与监听收发、WebSocket 全双工长连接、基于纯 Rust `librqbit v9` 的 BitTorrent 高速下载与动态做种分发、基于 PyO3 零进程开销的 `yt-dlp` 高清流媒体视频下载、WebRTC P2P 穿透与加密中继共享，以及网络 RTT 延迟探测 (Ping) 与端口可用性检测。
+工业级跨平台全栈网络通信、流媒体抓取与分布式数据传输套件。涵盖工业级 RESTful API 旗舰客户端、HTTP 回调监听服务 (Webhook)、底层 TCP/UDP 套接字连接池与监听收发、WebSocket 全双工长连接、纯 Rust 原生高性能 BitTorrent 高速下载与动态做种分发、进程内嵌入式流媒体视频高清下载、WebRTC P2P 穿透与加密中继共享，以及网络 RTT 延迟探测 (Ping) 与端口可用性检测。
 
 ---
 
@@ -15,16 +15,16 @@
 - **工业级 HTTP/RESTful 通信**：
   - **旗舰请求器 (`HttpRequest`)**：支持全量 HTTP 谓词、`multipart/form-data` 文件上传、浏览器/Postman cURL 指令一键解析、多级代理穿透、5xx/网络故障自动重试与 `extract_json_path` 字段快速提取。
   - **基础方法算子 (`HttpGet`, `HttpPost`, `HttpHead`)** 与流式大文件下载器 (`HttpDownload`)，支持进度追踪与自动文件名推导。
-  - **临时 Webhook 监听服务 (`HttpWebhook`)**：内置基于 Axum 的轻量级 HTTP 监听器，支持 Token 安全鉴权并捕获远程推送回调。
+  - **临时 Webhook 监听服务 (`HttpWebhook`)**：内置轻量级 HTTP 监听服务，支持 Token 安全鉴权并捕获远程推送回调。
 - **全双工 WebSocket 长连接**：
-  - 基于 `tokio-tungstenite` 实现 `WebSocketConnect`、`WebSocketSend` 与 `WebSocketReceive`，支持心跳维系与全局连接池托管。
+  - 提供高可靠的异步全双工 `WebSocketConnect`、`WebSocketSend` 与 `WebSocketReceive`，支持心跳维系与全局连接池托管。
 - **底层 TCP/UDP 套接字引擎**：
   - 提供 `NetworkConnect`（连接）、`NetworkListen`（监听绑定）、`NetworkSend` 与 `NetworkReceive`（支持定长/定界符分帧、纯文本与工业 Hex 报文解析），以及统一的连接池句柄释放机制 (`NetworkClose`)。
 - **P2P 分布式传输与 BitTorrent 做种/下载**：
-  - **纯 Rust BT 引擎 (`BtDownload`, `BtSeed`)**：基于 `librqbit v9`，支持磁力链接与 Torrent 文件下载，支持单种子及动态监听文件夹自动做种分发。
+  - **纯 Rust BT 引擎 (`BtDownload`, `BtSeed`)**：内嵌高性能 BitTorrent 原生引擎，支持磁力链接与 Torrent 文件下载，支持单种子及动态监听文件夹自动做种分发，无需依赖任何外部下载器。
   - **WebRTC P2P 穿透与中继 (`P2PHost`, `P2PServer`)**：实现跨 NAT 内网穿透直连与受限环境加密中继回退，支持文件夹秒级点对点配对共享。
 - **流媒体视频抓取 (`VideoDownload`)**：
-  - 通过 `pypm` 沙箱集成 `yt-dlp` 原生库，利用 PyO3 进程内无额外进程开销执行抓取，支持读取 Chrome/Edge/Firefox 登录态 Cookie 与自定义配置。
+  - 进程级内嵌流媒体视频解析引擎，无外部子进程创建开销，高效执行抓取，支持读取 Chrome/Edge/Firefox 登录态 Cookie 与自定义配置。
 - **网络诊断与远程输入协同**：
   - 免提权的跨平台 RTT 延迟与丢包率探测 (`NetworkPing`)、域名 DNS 解析 (`DomainQuery`)、TCP 握手端口开放检测 (`PortCheck`)，以及基于 Token 鉴权的键鼠输入远程透传 (`SendInput`, `ReceiveInput`)。
 
@@ -34,8 +34,8 @@
 
 - **全协议栈覆盖**：HTTP/1.1 & HTTP/2、WebSocket、原始 TCP/UDP Socket、WebRTC P2P 与 BitTorrent。
 - **cURL 命令行一键逆向解析**：在 `HttpRequest` 中直接粘贴浏览器网络控制台或 Postman 复制的 cURL 命令，即可自动拆解并覆盖 URL、Headers、Body 与 Method。
-- **纯 Rust BitTorrent 引擎**：内嵌 `librqbit v9`，不依赖外部 qBittorrent 或 Aria2 进程，兼具极速下载与文件夹监听自动做种。
-- **PyO3 进程内嵌入式视频下载**：免除外部 `subprocess` 繁重开销与命令行参数转义风险，直接在沙箱内调用 `yt-dlp` 高清流媒体解析管线。
+- **纯 Rust BitTorrent 引擎**：完全内嵌的原生实现，不依赖外部 qBittorrent 或 Aria2 进程，兼具极速下载与文件夹监听自动做种。
+- **进程内嵌入式视频下载**：免除外部子进程繁重开销与命令行参数转义风险，直接在安全沙箱内调度全功能流媒体解析管线。
 - **高工业级可靠性**：套接字连接池全局复用、断网重试、自签名证书忽略、Hex 工业报文收发与定界符自动分包粘包处理。
 
 ---
@@ -49,7 +49,7 @@
 | `HttpPost` | HTTP POST 请求 | 发送携带 JSON、Form 或纯文本载荷的 POST 请求 | `string` |
 | `HttpHead` | HTTP HEAD 请求 | 仅拉取目标资源的 HTTP 头部元数据（不下载 Body） | `string` |
 | `HttpDownload` | HTTP 文件下载 | 流式下载大文件，支持进度跟踪与文件名智能推导 | `string` |
-| `HttpWebhook` | HTTP 回调监听 | 基于 Axum 启动微服务，等待并接收远程系统 Webhook 回调 | `string` |
+| `HttpWebhook` | HTTP 回调监听 | 本地启动轻量级微服务，等待并接收远程系统 Webhook 回调 | `string` |
 | `SendEmail` | 邮件发送 | 通过 SMTP 协议或 Resend API 发送邮件，支持 Google (Gmail)、Resend、QQ、163 等，支持 HTML 及附件 | `string` |
 | `WebSocketConnect` | WebSocket 建立长连接 | 建立异步全双工 WS/WSS 客户端连接并注册到全局连接池 | `string` |
 | `WebSocketSend` | WebSocket 发送消息 | 向指定 WebSocket 连接发送文本或二进制数据帧 | `string` |
@@ -59,9 +59,9 @@
 | `NetworkSend` | 网络发送 (Socket) | 发送文本字符串或 Hex 工业十六进制原始报文 | `string` |
 | `NetworkReceive` | 网络接收 (Socket) | 按定界符、定长或全部可用流读取入站套接字数据 | `string` |
 | `NetworkClose` | 关闭网络连接 | 安全释放已打开的 TCP/UDP 套接字或 WebSocket 句柄 | `string` |
-| `BtDownload` | BT/种子下载 | 基于 librqbit 纯 Rust 引擎，通过 Torrent/Magnet 高速下载 | `string` |
-| `BtSeed` | BT/种子做种分发 | 基于 librqbit 做种服务，支持动态监听文件夹持续分发做种 | `string` |
-| `VideoDownload` | 流媒体视频下载 | 通过 PyO3 在进程内调用 yt-dlp，支持浏览器 Cookie 提取与高清下载 | `string` |
+| `BtDownload` | BT/种子下载 | 基于纯 Rust 原生高性能引擎，通过 Torrent/Magnet 高速下载 | `string` |
+| `BtSeed` | BT/种子做种分发 | 内置做种服务，支持动态监听文件夹持续分发做种 | `string` |
+| `VideoDownload` | 流媒体视频下载 | 进程级内嵌流媒体解析内核，支持浏览器 Cookie 提取与高清下载 | `string` |
 | `P2PHost` | P2P 文件分发节点 | 通过 WebRTC/Direct 穿透并与信令服务器共享本地文件夹 | `string` |
 | `P2PServer` | P2P 信令与中继服务 | 启动 P2P 网络信令发现与 WebRTC 握手及加密流量中继中心 | `string` |
 | `NetworkPing` | 网络连通性探测 | 跨平台多轮 RTT 延迟与丢包率探测（免 Root/管理员权限） | `string` |
@@ -195,7 +195,7 @@
 - **输入参数：**
   - `file`: `.torrent` 种子文件路径或 `magnet:?xt=...` 磁力链接。
   - `save_path`: 下载落盘的目标文件夹。
-- **引擎特性：** 基于 `librqbit v9` 纯 Rust 打造，零外部依赖，极速并行分片调度。
+- **引擎特性：** 纯 Rust 原生全内嵌打造，零外部依赖，极速并行分片调度。
 
 #### `BtSeed` - BT/种子做种分发
 - **输入参数：**
@@ -216,7 +216,7 @@
   | `browser` | 读取 Cookie 的浏览器 | `string` | `chrome` | `chrome`, `edge`, `firefox`, `none` | 直接从本地已登录浏览器抓取会话 Cookie |
   | `profile_directory`| 浏览器配置目录 | `string` | `""` | - | 指定特定浏览器用户 Profile 目录 |
   | `cookies_from_browser`| 浏览器 Cookie 提取模式 | `string` | `""` | - | 高级浏览器提取扩展配置 |
-- **实现架构：** 在 `pypm` 沙箱内加载 `yt-dlp` 原生模块，通过 PyO3 进程内无缝调用，无子进程创建损耗。
+- **特性说明：** 采用进程内嵌入式流媒体解析架构，无外部子进程调度损耗，直接对接本地会话环境。
 
 ---
 
@@ -262,4 +262,8 @@
 
 ## 📄 许可证 (License)
 
-本项目遵循 [MIT License](LICENSE) 开源协议。
+本插件为 **XY Runner 官方内置专有免费组件 (Freeware / Proprietary)**。
+
+- **使用授权**：面向所有终端用户免费提供使用（Freeware）。
+- **版权声明**：保留所有权利 (All Rights Reserved)。
+- **源码保护与限制**：本插件源码不公开，发布产物仅包含编译后的二进制动态库及元数据。严禁对本插件进行逆向工程、反编译、反汇编、破解、篡改或独立分发。
