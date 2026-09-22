@@ -1,0 +1,1921 @@
+{
+  "plugin_id": "xy_network",
+  "name": "网络请求与文件下载 (Network & Downloader)",
+  "version": "0.49.1",
+  "group": "Network",
+  "group_icon": "📡",
+  "description": "提供发送 HTTP 接口请求 (API)、大文件高速下载、WebSocket 实时长连接、网络状态检测与局域网文件互传功能",
+  "actions": [
+    {
+      "tag": "BtDownload",
+      "display_name": "BT/种子下载 (BtDownload)",
+      "icon": "🧲",
+      "platforms": "All",
+      "description": "通过 BT 种子文件或磁力链接高速下载网络资源",
+      "keywords": [
+        "bt",
+        "torrent",
+        "magnet",
+        "p2p",
+        "download",
+        "种子下载"
+      ],
+      "fields": [
+        {
+          "name": "file",
+          "display_name": "种子文件/磁力链接",
+          "intrinsic_type": "FilePicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "Torrent 文件路径或 Magnet 磁力链接 (magnet:?xt=...)"
+        },
+        {
+          "name": "save_path",
+          "display_name": "保存路径",
+          "intrinsic_type": "DirectoryPicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "下载数据保存的目标文件夹"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "BtSeed",
+      "display_name": "BT/种子做种分发 (BtSeed)",
+      "icon": "🌱",
+      "platforms": "All",
+      "description": "将本地文件作为 BT 种子进行持续做种与分发共享",
+      "keywords": [
+        "bt",
+        "seed",
+        "torrent",
+        "share",
+        "做种",
+        "p2p做种"
+      ],
+      "fields": [
+        {
+          "name": "torrent_path",
+          "display_name": "单个种子文件路径",
+          "intrinsic_type": "FilePicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "单个 .torrent 文件路径（与监听文件夹二选一）"
+        },
+        {
+          "name": "watch_folder",
+          "display_name": "种子监听文件夹",
+          "intrinsic_type": "DirectoryPicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "动态监听种子文件夹，新放入的 .torrent 自动加入做种，移除则自动停止做种"
+        },
+        {
+          "name": "resource_folder",
+          "display_name": "本地资源数据目录",
+          "intrinsic_type": "DirectoryPicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "做种关联的本地实际资源文件根目录"
+        },
+        {
+          "name": "port",
+          "display_name": "做种监听端口",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "4240",
+          "presets": [
+            "4240",
+            "6881"
+          ],
+          "description": "BitTorrent Peer 做种服务监听端口"
+        },
+        {
+          "name": "seed_duration",
+          "display_name": "做种持续时间(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "0",
+          "presets": [
+            "0",
+            "3600",
+            "86400"
+          ],
+          "description": "持续做种时长（秒），0 表示后台持续做种不退出"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "DomainQuery",
+      "display_name": "域名查询 (DomainQuery)",
+      "icon": "🔎",
+      "platforms": "All",
+      "description": "查询指定网址域名的对应 IP 地址信息",
+      "keywords": [
+        "dns",
+        "domain",
+        "query",
+        "ip",
+        "resolve",
+        "域名查询"
+      ],
+      "fields": [
+        {
+          "name": "p_node_name",
+          "display_name": "主机节点名/域名",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "localhost",
+          "presets": [
+            "localhost",
+            "www.baidu.com",
+            "google.com"
+          ],
+          "description": "需要查询的目标主机名或域名"
+        },
+        {
+          "name": "p_service_name",
+          "display_name": "服务名/端口",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "http",
+          "presets": [
+            "http",
+            "https",
+            "80",
+            "443"
+          ],
+          "description": "网络服务名称或端口号"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "HttpDownload",
+      "display_name": "HTTP 文件下载 (HttpDownload)",
+      "icon": "⬇️",
+      "platforms": "All",
+      "description": "通过网址极速下载大文件，支持显示下载进度与断点保存",
+      "keywords": [
+        "http",
+        "download",
+        "file",
+        "url",
+        "文件下载"
+      ],
+      "fields": [
+        {
+          "name": "url",
+          "display_name": "下载链接 (URL)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "https://",
+          "presets": [],
+          "description": "远程资源下载 URL 地址"
+        },
+        {
+          "name": "folder",
+          "display_name": "保存目录",
+          "intrinsic_type": "DirectoryPicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "本地保存目标目录路径"
+        },
+        {
+          "name": "filename",
+          "display_name": "保存文件名",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "自定义保存的文件名（留空则自动从响应头或 URL 推导）"
+        },
+        {
+          "name": "overwrite",
+          "display_name": "存在时是否覆盖",
+          "intrinsic_type": "bool",
+          "default_type": "bool",
+          "default_value": "true",
+          "presets": [
+            "true",
+            "false"
+          ],
+          "description": "若目标文件已存在是否直接覆盖"
+        },
+        {
+          "name": "headers",
+          "display_name": "请求头 (Headers)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "自定义请求头 (JSON 格式或 Key: Value)"
+        },
+        {
+          "name": "timeout",
+          "display_name": "超时时间(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "60",
+          "presets": [
+            "30",
+            "60",
+            "300"
+          ],
+          "description": "下载总超时时长"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "HttpGet",
+      "display_name": "HTTP GET 请求 (HttpGet)",
+      "icon": "📥",
+      "platforms": "All",
+      "description": "发送 HTTP GET 请求获取网页内容或接口数据",
+      "keywords": [
+        "http",
+        "get",
+        "api",
+        "request",
+        "网络请求"
+      ],
+      "fields": [
+        {
+          "name": "url",
+          "display_name": "请求地址 (URL)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "http://",
+          "presets": [
+            "http://localhost:8080"
+          ],
+          "description": "目标 HTTP 请求 URL"
+        },
+        {
+          "name": "req_headers",
+          "display_name": "请求头 (Headers)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "自定义请求头信息 (JSON 或 Key: Value)"
+        },
+        {
+          "name": "query_string",
+          "display_name": "查询参数 (Query)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "URL 查询参数 (JSON 对象或 a=1&b=2 形式)"
+        },
+        {
+          "name": "timeout",
+          "display_name": "超时时间(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "30",
+          "presets": [
+            "10",
+            "30",
+            "60"
+          ],
+          "description": "请求超时秒数"
+        },
+        {
+          "name": "ignore_ssl",
+          "display_name": "忽略 SSL 证书校验",
+          "intrinsic_type": "bool",
+          "default_type": "bool",
+          "default_value": "false",
+          "presets": [
+            "false",
+            "true"
+          ],
+          "description": "是否忽略自签名或无效 SSL 证书错误"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "HttpHead",
+      "display_name": "HTTP HEAD 请求 (HttpHead)",
+      "icon": "📋",
+      "platforms": "All",
+      "description": "快速检查目标下载链接是否有效以及文件体积大小",
+      "keywords": [
+        "http",
+        "head",
+        "headers",
+        "metadata",
+        "头部请求"
+      ],
+      "fields": [
+        {
+          "name": "url",
+          "display_name": "请求地址 (URL)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "http://",
+          "presets": [],
+          "description": "目标资源的 HTTP URL"
+        },
+        {
+          "name": "req_headers",
+          "display_name": "请求头 (Headers)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "自定义请求头 (JSON 或 Key: Value)"
+        },
+        {
+          "name": "timeout",
+          "display_name": "超时时间(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "15",
+          "presets": [
+            "5",
+            "15",
+            "30"
+          ],
+          "description": "请求超时秒数"
+        },
+        {
+          "name": "ignore_ssl",
+          "display_name": "忽略 SSL 证书校验",
+          "intrinsic_type": "bool",
+          "default_type": "bool",
+          "default_value": "false",
+          "presets": [
+            "false",
+            "true"
+          ],
+          "description": "是否忽略自签名证书错误"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "HttpPost",
+      "display_name": "HTTP POST 请求 (HttpPost)",
+      "icon": "📤",
+      "platforms": "All",
+      "description": "发送 HTTP POST 请求提交表单、文本或 JSON 数据",
+      "keywords": [
+        "http",
+        "post",
+        "api",
+        "payload",
+        "json",
+        "提交数据"
+      ],
+      "fields": [
+        {
+          "name": "url",
+          "display_name": "请求地址 (URL)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "http://",
+          "presets": [],
+          "description": "目标 HTTP POST URL"
+        },
+        {
+          "name": "content_type",
+          "display_name": "内容格式",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "application/json",
+          "presets": [
+            "application/json",
+            "application/x-www-form-urlencoded",
+            "text/plain"
+          ],
+          "description": "POST 请求载荷类型"
+        },
+        {
+          "name": "content",
+          "display_name": "发送内容 (Payload)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "POST 请求体数据"
+        },
+        {
+          "name": "req_headers",
+          "display_name": "请求头 (Headers)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "自定义请求头信息"
+        },
+        {
+          "name": "timeout",
+          "display_name": "超时时间(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "30",
+          "presets": [
+            "10",
+            "30",
+            "60"
+          ],
+          "description": "请求超时秒数"
+        },
+        {
+          "name": "ignore_ssl",
+          "display_name": "忽略 SSL 证书校验",
+          "intrinsic_type": "bool",
+          "default_type": "bool",
+          "default_value": "false",
+          "presets": [
+            "false",
+            "true"
+          ],
+          "description": "是否忽略自签名证书错误"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "HttpRequest",
+      "display_name": "通用 HTTP/RESTful 请求 (HttpRequest)",
+      "icon": "🌐",
+      "platforms": "All",
+      "description": "通用网络接口请求工具，支持所有请求类型、上传文件、设置代理与自动重试",
+      "keywords": [
+        "http",
+        "rest",
+        "api",
+        "curl",
+        "multipart",
+        "upload",
+        "proxy",
+        "网络请求"
+      ],
+      "fields": [
+        {
+          "name": "url",
+          "display_name": "请求地址 (URL)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "https://",
+          "presets": [],
+          "description": "目标请求 URL 地址"
+        },
+        {
+          "name": "method",
+          "display_name": "请求方法 (Method)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "GET",
+          "presets": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH",
+            "HEAD",
+            "OPTIONS"
+          ],
+          "description": "标准 HTTP 请求动词"
+        },
+        {
+          "name": "headers",
+          "display_name": "请求头 (Headers)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "请求头（支持 JSON 格式或 Key: Value 多行格式）"
+        },
+        {
+          "name": "query_params",
+          "display_name": "URL 查询参数",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "URL 查询参数（支持 JSON 对象或 a=1&b=2 格式）"
+        },
+        {
+          "name": "body",
+          "display_name": "请求体 (Body)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "请求载荷内容（支持 JSON、Form、Raw）"
+        },
+        {
+          "name": "body_type",
+          "display_name": "请求体类型",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "JSON",
+          "presets": [
+            "JSON",
+            "Form",
+            "Raw",
+            "MultipartFile"
+          ],
+          "description": "请求载荷封装编码类型"
+        },
+        {
+          "name": "file_path",
+          "display_name": "上传文件路径",
+          "intrinsic_type": "FilePicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "MultipartFile 模式下的本地文件路径"
+        },
+        {
+          "name": "file_field_name",
+          "display_name": "文件表单字段名",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "file",
+          "presets": [
+            "file",
+            "upload"
+          ],
+          "description": "Multipart 表单中的文件键名"
+        },
+        {
+          "name": "curl_command",
+          "display_name": "cURL 指令解析",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "直接粘贴浏览器或 Postman 复制的 cURL 命令行，自动覆盖上述请求参数"
+        },
+        {
+          "name": "timeout",
+          "display_name": "超时时间(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "30",
+          "presets": [
+            "10",
+            "30",
+            "60"
+          ],
+          "description": "请求超时秒数"
+        },
+        {
+          "name": "ignore_ssl",
+          "display_name": "忽略 SSL 证书校验",
+          "intrinsic_type": "bool",
+          "default_type": "bool",
+          "default_value": "false",
+          "presets": [
+            "false",
+            "true"
+          ],
+          "description": "是否跳过 HTTPS 证书有效性校验"
+        },
+        {
+          "name": "proxy",
+          "display_name": "网络代理地址",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [
+            "http://127.0.0.1:7890",
+            "socks5://127.0.0.1:1080"
+          ],
+          "description": "HTTP 或 SOCKS5 代理地址"
+        },
+        {
+          "name": "max_retries",
+          "display_name": "失败自动重试次数",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "0",
+          "presets": [
+            "0",
+            "1",
+            "3"
+          ],
+          "description": "遇到网络中断或 5xx 错误时的最大重试次数"
+        },
+        {
+          "name": "extract_json_path",
+          "display_name": "JSON 字段快速提取",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [
+            "data",
+            "code",
+            "token"
+          ],
+          "description": "可选直接提取响应 JSON 中的顶级或嵌套字段"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "HttpWebhook",
+      "display_name": "HTTP 回调监听 (HttpWebhook)",
+      "icon": "🪝",
+      "platforms": "All",
+      "description": "在本地启动临时接收服务，等待接收第三方系统推送的回调通知",
+      "keywords": [
+        "webhook",
+        "callback",
+        "http",
+        "listener",
+        "回调监听"
+      ],
+      "fields": [
+        {
+          "name": "bind_address",
+          "display_name": "监听绑定地址",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "0.0.0.0:8088",
+          "presets": [
+            "0.0.0.0:8088",
+            "127.0.0.1:8088"
+          ],
+          "description": "本地网络接口和监听端口"
+        },
+        {
+          "name": "route_path",
+          "display_name": "回调路由路径",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "/webhook",
+          "presets": [
+            "/webhook",
+            "/callback",
+            "/notify"
+          ],
+          "description": "等待接收的 HTTP 路由路径"
+        },
+        {
+          "name": "secret_token",
+          "display_name": "鉴权令牌 (Token)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "可选鉴权口令（匹配 X-Webhook-Secret 或 Authorization 头部）"
+        },
+        {
+          "name": "timeout",
+          "display_name": "最大等待时间(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "60",
+          "presets": [
+            "30",
+            "60",
+            "300"
+          ],
+          "description": "等待入站回调请求的最大超时时间"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "NetworkClose",
+      "display_name": "关闭网络连接 (NetworkClose)",
+      "icon": "🔌",
+      "platforms": "All",
+      "description": "主动关闭已建立的网络连接，释放网络资源",
+      "keywords": [
+        "socket",
+        "close",
+        "disconnect",
+        "websocket",
+        "关闭连接"
+      ],
+      "fields": [
+        {
+          "name": "connection_id",
+          "display_name": "连接标识 (Connection ID)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "待关闭的套接字或 WebSocket 唯一连接标识"
+        },
+        {
+          "name": "connection_type",
+          "display_name": "连接类型",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "Socket",
+          "presets": [
+            "Socket",
+            "WebSocket",
+            "All"
+          ],
+          "description": "需关闭的连接对象类型"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "NetworkConnect",
+      "display_name": "网络连接 (NetworkConnect)",
+      "icon": "🔗",
+      "platforms": "All",
+      "description": "建立底层 TCP 或 UDP 网络连接，准备发送和接收数据",
+      "keywords": [
+        "socket",
+        "connect",
+        "tcp",
+        "udp",
+        "网络连接"
+      ],
+      "fields": [
+        {
+          "name": "host_address",
+          "display_name": "主机地址",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "127.0.0.1",
+          "presets": [
+            "127.0.0.1",
+            "localhost"
+          ],
+          "description": "远程目标主机 IP 或域名"
+        },
+        {
+          "name": "port_number",
+          "display_name": "端口号",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "8080",
+          "presets": [
+            "80",
+            "443",
+            "8080"
+          ],
+          "description": "远程目标网络端口"
+        },
+        {
+          "name": "protocol",
+          "display_name": "传输协议",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "TCP",
+          "presets": [
+            "TCP",
+            "UDP"
+          ],
+          "description": "传输层协议"
+        },
+        {
+          "name": "connection_id",
+          "display_name": "连接标识 (可选)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "自定义连接标识（留空则自动根据 host:port 分配）"
+        },
+        {
+          "name": "timeout",
+          "display_name": "连接超时(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "10",
+          "presets": [
+            "5",
+            "10",
+            "30"
+          ],
+          "description": "套接字建立握手超时秒数"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "NetworkListen",
+      "display_name": "网络监听 (NetworkListen)",
+      "icon": "👂",
+      "platforms": "All",
+      "description": "在本地指定端口监听等待外部设备发来的网络连接或数据",
+      "keywords": [
+        "socket",
+        "listen",
+        "server",
+        "bind",
+        "端口监听"
+      ],
+      "fields": [
+        {
+          "name": "socket_address",
+          "display_name": "绑定监听地址与端口",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "0.0.0.0:8080",
+          "presets": [
+            "0.0.0.0:8080",
+            "127.0.0.1:8080"
+          ],
+          "description": "本地绑定的网络接口和监听端口"
+        },
+        {
+          "name": "protocol",
+          "display_name": "传输协议",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "TCP",
+          "presets": [
+            "TCP",
+            "UDP"
+          ],
+          "description": "传输层协议"
+        },
+        {
+          "name": "connection_id",
+          "display_name": "连接标识 (可选)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "自定义连接标识"
+        },
+        {
+          "name": "timeout",
+          "display_name": "入站等待超时(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "60",
+          "presets": [
+            "30",
+            "60",
+            "120"
+          ],
+          "description": "等待首个客户端连接建立的超时秒数"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "NetworkPing",
+      "display_name": "网络连通性探测 (NetworkPing)",
+      "icon": "📶",
+      "platforms": "All",
+      "description": "测试与目标网站或服务器的网络连接延迟和丢包情况",
+      "keywords": [
+        "ping",
+        "latency",
+        "icmp",
+        "rtt",
+        "网络连通",
+        "延迟探测"
+      ],
+      "fields": [
+        {
+          "name": "host",
+          "display_name": "目标主机/IP",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "8.8.8.8",
+          "presets": [
+            "8.8.8.8",
+            "114.114.114.114",
+            "baidu.com"
+          ],
+          "description": "探测目标 IP 或域名"
+        },
+        {
+          "name": "count",
+          "display_name": "探测次数 (轮数)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "4",
+          "presets": [
+            "1",
+            "4",
+            "10"
+          ],
+          "description": "发送探测报文的次数"
+        },
+        {
+          "name": "timeout",
+          "display_name": "单次超时时间(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "2",
+          "presets": [
+            "1",
+            "2",
+            "5"
+          ],
+          "description": "单次探测请求超时阈值"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "NetworkReceive",
+      "display_name": "网络接收 (NetworkReceive)",
+      "icon": "📥",
+      "platforms": "All",
+      "description": "从已建立的网络连接中接收对端发来的数据",
+      "keywords": [
+        "socket",
+        "receive",
+        "read",
+        "hex",
+        "数据接收"
+      ],
+      "fields": [
+        {
+          "name": "socket",
+          "display_name": "套接字连接标识",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "已连接的套接字连接标识 (Connection ID)"
+        },
+        {
+          "name": "mode",
+          "display_name": "读取模式",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "AllAvailable",
+          "presets": [
+            "UntilDelimiter",
+            "FixedLength",
+            "AllAvailable"
+          ],
+          "description": "数据帧切割读取策略"
+        },
+        {
+          "name": "fixed_length",
+          "display_name": "定长读取字节数",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "1024",
+          "presets": [
+            "512",
+            "1024",
+            "4096"
+          ],
+          "description": "FixedLength 模式下的期望字节数"
+        },
+        {
+          "name": "delimiter",
+          "display_name": "帧结束定界符",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "\\n",
+          "presets": [
+            "\\n",
+            "\\r\\n"
+          ],
+          "description": "UntilDelimiter 模式下的定界字符"
+        },
+        {
+          "name": "output_format",
+          "display_name": "输出格式",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "Text",
+          "presets": [
+            "Text",
+            "Hex"
+          ],
+          "description": "输出解码格式（文本字符串或十六进制字节串）"
+        },
+        {
+          "name": "timeout",
+          "display_name": "超时时间(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "10",
+          "presets": [
+            "5",
+            "10",
+            "30"
+          ],
+          "description": "读取超时时间"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "NetworkSend",
+      "display_name": "网络发送 (NetworkSend)",
+      "icon": "📤",
+      "platforms": "All",
+      "description": "向已连接的网络设备发送一段文本或数据",
+      "keywords": [
+        "socket",
+        "send",
+        "write",
+        "hex",
+        "数据发送"
+      ],
+      "fields": [
+        {
+          "name": "socket",
+          "display_name": "套接字连接标识",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "已连接的套接字连接标识 (Connection ID)"
+        },
+        {
+          "name": "value",
+          "display_name": "发送数据内容",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "待发送的内容（文本或 Hex 字符串如 '01 03 00 00 00 01 84 0A'）"
+        },
+        {
+          "name": "format",
+          "display_name": "数据格式",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "Text",
+          "presets": [
+            "Text",
+            "Hex"
+          ],
+          "description": "发送数据解析编码类型"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "P2PHost",
+      "display_name": "P2P 文件分发节点 (P2PHost)",
+      "icon": "🖥️",
+      "platforms": "All",
+      "description": "通过点对点直连技术与局域网内的其他设备共享本地文件夹",
+      "keywords": [
+        "p2p",
+        "webrtc",
+        "host",
+        "share",
+        "文件分发"
+      ],
+      "fields": [
+        {
+          "name": "folder_path",
+          "display_name": "本地共享目录",
+          "intrinsic_type": "DirectoryPicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "共享给远端对等节点的本地文件夹路径"
+        },
+        {
+          "name": "server_url",
+          "display_name": "信令/中继服务器 URL",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "ws://127.0.0.1:8080/ws",
+          "presets": [
+            "ws://127.0.0.1:8080/ws"
+          ],
+          "description": "公共信令与穿透中继服务器 WebSocket 地址"
+        },
+        {
+          "name": "share_code",
+          "display_name": "共享房间码/提取口令",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "default",
+          "presets": [
+            "default"
+          ],
+          "description": "配对提取房间码"
+        },
+        {
+          "name": "relay_fallback",
+          "display_name": "允许中继降级回退",
+          "intrinsic_type": "bool",
+          "default_type": "bool",
+          "default_value": "true",
+          "presets": [
+            "true",
+            "false"
+          ],
+          "description": "打洞失败时是否自动回退至服务器中继"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "P2PServer",
+      "display_name": "P2P 信令与中继服务 (P2PServer)",
+      "icon": "🌐",
+      "platforms": "All",
+      "description": "启动设备之间直连发现与网络中继转发服务",
+      "keywords": [
+        "p2p",
+        "signaling",
+        "server",
+        "relay",
+        "信令服务"
+      ],
+      "fields": [
+        {
+          "name": "bind_address",
+          "display_name": "监听绑定地址",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "0.0.0.0:8080",
+          "presets": [
+            "0.0.0.0:8080"
+          ],
+          "description": "信令及中继服务绑定的地址与端口"
+        },
+        {
+          "name": "enable_relay",
+          "display_name": "启用流量中继转发",
+          "intrinsic_type": "bool",
+          "default_type": "bool",
+          "default_value": "true",
+          "presets": [
+            "true",
+            "false"
+          ],
+          "description": "是否为穿透受限的节点提供加密数据中继通道"
+        },
+        {
+          "name": "optional_root_folder",
+          "display_name": "静态 Web 资源根目录",
+          "intrinsic_type": "DirectoryPicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "可选静态下载网页根目录"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "PortCheck",
+      "display_name": "端口可用性检测 (PortCheck)",
+      "icon": "🚪",
+      "platforms": "All",
+      "description": "快速检测目标服务器的指定端口是否正常开放",
+      "keywords": [
+        "port",
+        "check",
+        "scan",
+        "tcp",
+        "端口检测",
+        "开放检测"
+      ],
+      "fields": [
+        {
+          "name": "host",
+          "display_name": "目标主机/IP",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "127.0.0.1",
+          "presets": [
+            "127.0.0.1",
+            "localhost"
+          ],
+          "description": "目标 IP 或域名"
+        },
+        {
+          "name": "port",
+          "display_name": "目标端口",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "80",
+          "presets": [
+            "80",
+            "443",
+            "3306",
+            "5432",
+            "6379",
+            "8080"
+          ],
+          "description": "需要探测的目标网络端口号"
+        },
+        {
+          "name": "timeout",
+          "display_name": "超时时间(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "5",
+          "presets": [
+            "2",
+            "5",
+            "10"
+          ],
+          "description": "探测连接超时秒数"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "ReceiveInput",
+      "display_name": "接收远程输入事件 (ReceiveInput)",
+      "icon": "📩",
+      "platforms": "All",
+      "description": "通过网络接收远程设备发来的鼠标键盘操作指令",
+      "keywords": [
+        "remote",
+        "input",
+        "receive",
+        "远程输入"
+      ],
+      "fields": [
+        {
+          "name": "host_address",
+          "display_name": "来源主机地址",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "0.0.0.0",
+          "presets": [
+            "0.0.0.0"
+          ],
+          "description": "接收输入监听网络地址"
+        },
+        {
+          "name": "offset_pos",
+          "display_name": "坐标偏移量",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "0,0",
+          "presets": [
+            "0,0"
+          ],
+          "description": "鼠标光标偏移校准"
+        },
+        {
+          "name": "protocol",
+          "display_name": "网络协议",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "TCP",
+          "presets": [
+            "TCP",
+            "UDP"
+          ],
+          "description": "传输协议"
+        },
+        {
+          "name": "auth_token",
+          "display_name": "安全认证令牌",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "通信身份鉴权 Token 口令"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "SendInput",
+      "display_name": "发送远程输入事件 (SendInput)",
+      "icon": "📤",
+      "platforms": "All",
+      "description": "将本地的鼠标键盘操作通过网络同步发送给另一台设备",
+      "keywords": [
+        "remote",
+        "input",
+        "send",
+        "远程控制"
+      ],
+      "fields": [
+        {
+          "name": "host_address",
+          "display_name": "远端目标主机",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "127.0.0.1",
+          "presets": [
+            "127.0.0.1"
+          ],
+          "description": "目标控制设备网络地址"
+        },
+        {
+          "name": "offset_pos",
+          "display_name": "坐标偏移量",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "0,0",
+          "presets": [
+            "0,0"
+          ],
+          "description": "输入坐标偏移量"
+        },
+        {
+          "name": "protocol",
+          "display_name": "网络协议",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "TCP",
+          "presets": [
+            "TCP",
+            "UDP"
+          ],
+          "description": "传输协议"
+        },
+        {
+          "name": "auth_token",
+          "display_name": "安全认证令牌",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "通信身份鉴权 Token 口令"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "VideoDownload",
+      "display_name": "流媒体视频下载 (VideoDownload)",
+      "icon": "📹",
+      "platforms": "All",
+      "description": "输入视频网页链接，快速抓取并下载高清视频文件",
+      "keywords": [
+        "video",
+        "download",
+        "media",
+        "yt-dlp",
+        "pypm",
+        "视频下载"
+      ],
+      "fields": [
+        {
+          "name": "url",
+          "display_name": "视频网页地址 (URL)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "https://",
+          "presets": [],
+          "description": "流媒体视频在线播放地址"
+        },
+        {
+          "name": "output",
+          "display_name": "输出保存目录",
+          "intrinsic_type": "DirectoryPicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "视频下载后保存的目标目录"
+        },
+        {
+          "name": "options",
+          "display_name": "附加下载参数",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "高级额外下载参数配置 (JSON 格式)"
+        },
+        {
+          "name": "cookiefile",
+          "display_name": "Cookie 文件路径",
+          "intrinsic_type": "FilePicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "本地 Netscape 格式 Cookie 文本文件路径"
+        },
+        {
+          "name": "browser",
+          "display_name": "读取 Cookie 的浏览器",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "chrome",
+          "presets": [
+            "chrome",
+            "edge",
+            "firefox",
+            "none"
+          ],
+          "description": "直接从指定浏览器抓取登录态 Cookie"
+        },
+        {
+          "name": "profile_directory",
+          "display_name": "浏览器配置目录",
+          "intrinsic_type": "DirectoryPicker",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "浏览器的用户配置目录路径 (Profile Directory)"
+        },
+        {
+          "name": "cookies_from_browser",
+          "display_name": "浏览器 Cookie 提取模式",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "高级浏览器 Cookie 提取指令"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "WebSocketConnect",
+      "display_name": "WebSocket 建立长连接 (WebSocketConnect)",
+      "icon": "🔌",
+      "platforms": "All",
+      "description": "连接到指定的 WebSocket 服务器，建立实时双向长连接",
+      "keywords": [
+        "websocket",
+        "ws",
+        "wss",
+        "connect",
+        "长连接",
+        "双工通信"
+      ],
+      "fields": [
+        {
+          "name": "url",
+          "display_name": "WebSocket 地址",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "ws://127.0.0.1:8080",
+          "presets": [
+            "ws://127.0.0.1:8080",
+            "wss://echo.websocket.org"
+          ],
+          "description": "目标 WebSocket 服务端地址 (ws:// 或 wss://)"
+        },
+        {
+          "name": "connection_id",
+          "display_name": "连接标识 (可选)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "自定义 WebSocket 连接标识（留空则自动根据 URL 分配）"
+        },
+        {
+          "name": "headers",
+          "display_name": "握手请求头 (Headers)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "握手附加请求头 (JSON 格式或 Key: Value)"
+        },
+        {
+          "name": "timeout",
+          "display_name": "握手连接超时(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "10",
+          "presets": [
+            "5",
+            "10",
+            "30"
+          ],
+          "description": "建立 WebSocket 握手超时秒数"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "WebSocketReceive",
+      "display_name": "WebSocket 接收消息 (WebSocketReceive)",
+      "icon": "📨",
+      "platforms": "All",
+      "description": "从 WebSocket 长连接中等待并接收一条新消息",
+      "keywords": [
+        "websocket",
+        "receive",
+        "message",
+        "read",
+        "接收消息"
+      ],
+      "fields": [
+        {
+          "name": "connection_id",
+          "display_name": "连接标识",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "已建立连接的 WebSocket 连接标识"
+        },
+        {
+          "name": "timeout",
+          "display_name": "接收超时时间(秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "30",
+          "presets": [
+            "10",
+            "30",
+            "60"
+          ],
+          "description": "等待入站消息的最大超时秒数"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "WebSocketSend",
+      "display_name": "WebSocket 发送消息 (WebSocketSend)",
+      "icon": "📤",
+      "platforms": "All",
+      "description": "通过 WebSocket 长连接向对方发送文本或数据消息",
+      "keywords": [
+        "websocket",
+        "send",
+        "message",
+        "write",
+        "发送消息"
+      ],
+      "fields": [
+        {
+          "name": "connection_id",
+          "display_name": "连接标识",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "已建立连接的 WebSocket 连接标识"
+        },
+        {
+          "name": "message",
+          "display_name": "消息内容",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "待发送的消息文本或 Hex 报文"
+        },
+        {
+          "name": "message_type",
+          "display_name": "消息帧类型",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "Text",
+          "presets": [
+            "Text",
+            "Binary"
+          ],
+          "description": "WebSocket 消息帧格式（Text 或 Binary）"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "SendEmail",
+      "display_name": "发送邮件 (SendEmail)",
+      "icon": "📧",
+      "platforms": "All",
+      "description": "通过 SMTP 协议或 Resend API 发送电子邮件，支持 Google (Gmail)、Resend、QQ、163 等主流服务商，支持 SSL/TLS、STARTTLS、HTML 富文本及多附件投递",
+      "keywords": [
+        "email",
+        "smtp",
+        "mail",
+        "send",
+        "gmail",
+        "resend",
+        "邮件",
+        "发送邮件",
+        "邮箱",
+        "附件"
+      ],
+      "fields": [
+        {
+          "name": "service_type",
+          "display_name": "服务类型 (Service Type)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "SMTP",
+          "presets": [
+            "SMTP",
+            "Resend (API)"
+          ],
+          "description": "邮件传输通道类型：SMTP（通用协议）或 Resend (API)（HTTPS 443 端口直连）"
+        },
+        {
+          "name": "provider_preset",
+          "display_name": "快捷服务商预设",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "Custom",
+          "presets": [
+            "Custom",
+            "Gmail",
+            "Resend (SMTP)",
+            "Resend (API)",
+            "QQ",
+            "163",
+            "Outlook"
+          ],
+          "description": "主流邮件服务商一键配置模板，选择后自动匹配服务器地址与加密参数"
+        },
+        {
+          "name": "smtp_host",
+          "display_name": "SMTP 服务器地址",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "smtp.qq.com",
+          "presets": [
+            "smtp.qq.com",
+            "smtp.163.com",
+            "smtp.gmail.com",
+            "smtp.resend.com",
+            "smtp.office365.com"
+          ],
+          "description": "SMTP 服务器域名或 IP 地址（例如 smtp.gmail.com 或 smtp.resend.com）"
+        },
+        {
+          "name": "smtp_port",
+          "display_name": "SMTP 端口",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "465",
+          "presets": [
+            "465",
+            "587",
+            "25"
+          ],
+          "description": "SMTP 服务端口（465 对应 SSL/TLS 隐式加密，587 对应 STARTTLS，25 对应明文）"
+        },
+        {
+          "name": "encryption",
+          "display_name": "传输加密 (Encryption)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "SSL/TLS",
+          "presets": [
+            "SSL/TLS",
+            "STARTTLS",
+            "None",
+            "Auto"
+          ],
+          "description": "传输层加密模式（Auto 根据端口自动选择）"
+        },
+        {
+          "name": "api_key",
+          "display_name": "Resend API Key",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "Resend 平台颁发的 API Key（以 re_ 开头，仅在 Resend API 模式下生效）"
+        },
+        {
+          "name": "username",
+          "display_name": "邮箱账号 (Username)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "登录账号（Gmail/QQ/163 请填写完整邮箱地址；Resend SMTP 固定填 resend）"
+        },
+        {
+          "name": "password",
+          "display_name": "密码/授权码 (Password)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "邮箱密码、第三方客户端授权码或 Google 应用专用密码 (App Password)"
+        },
+        {
+          "name": "from",
+          "display_name": "发件人 (From)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "发件人信息（例如 Support <notice@domain.com>，留空默认使用邮箱账号）"
+        },
+        {
+          "name": "to",
+          "display_name": "收件人 (To)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "收件人邮箱地址，支持英文逗号、分号或换行分隔多个地址"
+        },
+        {
+          "name": "cc",
+          "display_name": "抄送 (Cc)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "抄送收件人邮箱地址（可选，支持多个）"
+        },
+        {
+          "name": "bcc",
+          "display_name": "密送 (Bcc)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "密送收件人邮箱地址（可选，支持多个）"
+        },
+        {
+          "name": "reply_to",
+          "display_name": "回复地址 (Reply-To)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "指定接收回复邮件的目标地址（可选）"
+        },
+        {
+          "name": "subject",
+          "display_name": "邮件主题 (Subject)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "邮件标题"
+        },
+        {
+          "name": "body",
+          "display_name": "邮件正文 (Body)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "邮件正文内容（支持纯文本或完整 HTML 源码）"
+        },
+        {
+          "name": "body_type",
+          "display_name": "正文格式 (Body Type)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "Plain",
+          "presets": [
+            "Plain",
+            "HTML"
+          ],
+          "description": "正文格式：Plain（纯文本）或 HTML（富文本）"
+        },
+        {
+          "name": "attachments",
+          "display_name": "附件文件路径",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "本地附件文件绝对或相对路径，支持逗号、分号或换行分隔多个文件"
+        },
+        {
+          "name": "timeout_secs",
+          "display_name": "超时时间 (秒)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "30",
+          "presets": [
+            "10",
+            "30",
+            "60"
+          ],
+          "description": "网络连接及投递超时时长（秒）"
+        },
+        {
+          "name": "ignore_ssl_errors",
+          "display_name": "忽略 SSL 证书错误",
+          "intrinsic_type": "bool",
+          "default_type": "bool",
+          "default_value": "false",
+          "presets": [
+            "false",
+            "true"
+          ],
+          "description": "是否跳过自签名或无效 SSL/TLS 证书校验"
+        }
+      ],
+      "output_type": "string"
+    },
+    {
+      "tag": "ForwardProxy",
+      "display_name": "正向代理服务 (ForwardProxy)",
+      "icon": "🛡️",
+      "platforms": "All",
+      "description": "启动高性能正向代理/隧道代理服务，支持 HTTP/HTTPS CONNECT 与 SOCKS5 常见代理协议（支持单端口双协议自适应感知），支持账号密码认证与后台守护常驻，可联动 NetworkClose 安全释放",
+      "keywords": [
+        "proxy",
+        "forward_proxy",
+        "tunnel",
+        "http",
+        "https",
+        "socks5",
+        "connect",
+        "正向代理",
+        "隧道代理",
+        "代理服务"
+      ],
+      "fields": [
+        {
+          "name": "port",
+          "display_name": "监听端口号 (Port)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "1080",
+          "presets": [
+            "1080",
+            "8080",
+            "7890",
+            "10808",
+            "8888"
+          ],
+          "description": "代理服务在本地绑定的 TCP 监听端口号"
+        },
+        {
+          "name": "bind_address",
+          "display_name": "监听绑定IP (Bind Address)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "0.0.0.0",
+          "presets": [
+            "0.0.0.0",
+            "127.0.0.1"
+          ],
+          "description": "本地网络接口IP（0.0.0.0 允许局域网或外部访问，127.0.0.1 仅限本机访问）"
+        },
+        {
+          "name": "protocol",
+          "display_name": "代理协议 (Protocol)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "ALL",
+          "presets": [
+            "ALL",
+            "HTTP",
+            "SOCKS5"
+          ],
+          "description": "代理协议模式：ALL (单端口自适应感知 HTTP 与 SOCKS5 双协议)、HTTP (仅 HTTP/HTTPS 隧道代理)、SOCKS5 (仅 SOCKS5 代理)"
+        },
+        {
+          "name": "auth_username",
+          "display_name": "认证用户名 (留空免密)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "代理安全认证用户名，留空表示允许免密匿名连接"
+        },
+        {
+          "name": "auth_password",
+          "display_name": "认证密码 (可选)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "",
+          "presets": [],
+          "description": "代理安全认证密码"
+        },
+        {
+          "name": "handle_name",
+          "display_name": "服务句柄标识 (多实例隔离与NetworkClose联动)",
+          "intrinsic_type": "string",
+          "default_type": "string",
+          "default_value": "default_proxy",
+          "presets": [
+            "default_proxy"
+          ],
+          "description": "代理服务唯一标识句柄，用于多代理实例隔离，以及在 NetworkClose 算子中指定关闭"
+        },
+        {
+          "name": "timeout_secs",
+          "display_name": "空闲超时时间 (秒，0为不限制)",
+          "intrinsic_type": "number",
+          "default_type": "number",
+          "default_value": "60",
+          "presets": [
+            "30",
+            "60",
+            "300",
+            "0"
+          ],
+          "description": "隧道建立后无数据收发时的空闲超时秒数 (0 表示不限制)"
+        }
+      ],
+      "output_type": "string"
+    }
+  ]
+}
