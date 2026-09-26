@@ -1,7 +1,7 @@
 {
   "plugin_id": "xy_network",
   "name": "网络请求与文件下载 (Network & Downloader)",
-  "version": "0.49.1",
+  "version": "0.49.2",
   "group": "Network",
   "group_icon": "📡",
   "description": "提供发送 HTTP 接口请求 (API)、大文件高速下载、WebSocket 实时长连接、网络状态检测与局域网文件互传功能",
