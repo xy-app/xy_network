@@ -1,37 +1,34 @@
-# WebSocket 发送消息 (WebSocketSend)
+﻿# WebSocket 发送消息 (WebSocketSend)
 
-## 1. 功能概述
-`WebSocketSend` 算子通过已建立的 WebSocket 长连接，向对端服务器发送单条文本帧（`Text`）或二进制数据帧（`Binary`，支持十六进制 Hex 编码输入）。
+通过指定的 WebSocket 长连接通道向远端发送文本或二进制数据帧。
 
-## 2. 核心特性与工业痛点解决
-- **多类型数据帧支持**：无缝支持 JSON/纯文本与底层工控二进制 Hex 报文（如 `'01 03 00 01'`），自动进行字节转换与帧封装。
-- **自动上下文连接推导**：若未显式指定 `connection_id`，算子将自动从当前工作流上下文中获取最近一次由 `WebSocketConnect` 创建的活跃连接，简化配置流程。
-- **线程安全与并发保护**：底层基于异步读写互斥锁，多任务调用无需担心帧交叉与套接字损坏。
+## 运行参数
 
-## 3. 平台支持与权限
-- **支持平台**：`Windows` / `Linux` / `macOS` (跨平台通用)
-- **管理员权限**：`否` (标准用户权限)
+* **连接句柄标识符 (`client_name`)**
+  * 类型: `string`
+  * 默认值: `"default_ws"`
+  * 描述: 已建立连接的长连接句柄标识符。
+* **待发送消息内容 (`message`)**
+  * 类型: `string`
+  * 默认值: `""`
+  * 描述: 准备向长连接推送的文本或数据内容。
+* **以二进制帧发送 (`is_binary`)**
+  * 类型: `bool`
+  * 默认值: `false`
+  * 描述: `false` 表示发送 UTF-8 文本帧，`true` 表示发送二进制帧。
 
-## 4. 参数说明
+## 输出
 
-| 属性名称 | 参数类型 | 默认值 | 说明 |
-| :--- | :--- | :--- | :--- |
-| `connection_id` | `String` | `""` | WebSocket 连接标识符（留空自动使用当前上下文连接） |
-| `message` | `MixedType` | `""` | 待发送的消息内容（文本字符串或 Hex 格式十六进制字符串） |
-| `message_type` | `String` | `"Text"` | 帧类型：`"Text"` (文本帧) 或 `"Binary"` (二进制帧) |
+* 类型: `string`
+* 描述: 数据帧发送状态提示。
 
-## 5. 输出变量与上下文
-- **返回值**：发送结果 JSON 字符串：
-  ```json
-  {
-    "status": "sent",
-    "connection_id": "ws_127.0.0.1:8080",
-    "bytes_sent": 38
-  }
-  ```
-- **上下文变量**：
-  - `ws_send_status`：发送结果状态。
+## 使用示例
 
-## 6. 典型应用场景
-- **指令下发与远程控制**：向长连接对端发送 JSON 控制信令（如 `{"action": "subscribe", "topic": "trade"}`）。
-- **心跳保活包发送**：定时向长连接服务器发送 Ping/Pong 或自定义保活包。
+```json
+{
+  "tag": "WebSocketSend",
+  "client_name": "echo_client",
+  "message": "{\"type\": \"ping\"}",
+  "is_binary": false
+}
+```

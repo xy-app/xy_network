@@ -1,0 +1,111 @@
+{
+  "name": "Сетевые запросы и загрузка файлов (Network & Downloader)",
+  "description": "Предоставляет HTTP-запросы, быструю загрузку файлов, WebSocket, пинг сети и обмен файлами P2P",
+  "group": "Сеть и загрузка",
+  "actions": {
+    "BtDownload": {
+      "display_name": "Загрузка BitTorrent",
+      "description": "Загрузка файлов по торрент-файлам или magnet-ссылкам"
+    },
+    "BtSeed": {
+      "display_name": "Раздача BitTorrent (Сидирование)",
+      "description": "Создание раздачи и сидирование локальных файлов в сети BitTorrent"
+    },
+    "DomainQuery": {
+      "display_name": "DNS-запрос доменного имени",
+      "description": "Определение IP-адресов и записей доменного имени через DNS"
+    },
+    "ForwardProxy": {
+      "display_name": "Сервис прямого прокси (Forward Proxy)",
+      "description": "Запуск локального прямого прокси-сервера с поддержкой аутентификации"
+    },
+    "HttpDownload": {
+      "display_name": "Скачивание файла по HTTP",
+      "description": "Скачивание удаленных файлов по протоколам HTTP/HTTPS"
+    },
+    "HttpGet": {
+      "display_name": "Запрос HTTP GET",
+      "description": "Отправка стандартного запроса HTTP GET и получение ответа"
+    },
+    "HttpHead": {
+      "display_name": "Запрос HTTP HEAD",
+      "description": "Отправка запроса HTTP HEAD для проверки заголовков ресурса"
+    },
+    "HttpPost": {
+      "display_name": "Запрос HTTP POST",
+      "description": "Отправка запроса HTTP POST с полезной нагрузкой (JSON, формы)"
+    },
+    "HttpRequest": {
+      "display_name": "Универсальный HTTP-запрос",
+      "description": "Универсальный клиент HTTP с поддержкой любых методов и загрузки файлов"
+    },
+    "HttpWebhook": {
+      "display_name": "Слушатель HTTP Webhook",
+      "description": "Ожидание и обработка входящих вебхуков от внешних систем"
+    },
+    "NetworkClose": {
+      "display_name": "Закрыть сетевое соединение",
+      "description": "Безопасное закрытие открытых сетевых сокетов и соединений"
+    },
+    "NetworkConnect": {
+      "display_name": "Установить сетевое соединение",
+      "description": "Установление клиентского соединения TCP или UDP с удаленным узлом"
+    },
+    "NetworkListen": {
+      "display_name": "Прослушивание сетевого порта (Listen)",
+      "description": "Привязка и прослушивание входящих соединений на локальном порту"
+    },
+    "NetworkPing": {
+      "display_name": "Пинг сети и проверка задержки (RTT)",
+      "description": "Проверка доступности удаленного хоста и измерение задержки RTT"
+    },
+    "NetworkReceive": {
+      "display_name": "Прием сетевых данных",
+      "description": "Чтение входящего потока данных из открытого сетевого сокета"
+    },
+    "NetworkSend": {
+      "display_name": "Отправка сетевых данных",
+      "description": "Отправка байтов или текстовых пакетов через активное соединение"
+    },
+    "P2PHost": {
+      "display_name": "Узел P2P-обмена файлами",
+      "description": "Участие в децентрализованной P2P-сети для прямой передачи файлов"
+    },
+    "P2PServer": {
+      "display_name": "Сервер сигналинга и ретрансляции P2P",
+      "description": "Запуск сервера сигналинга для обнаружения пиров и пробива NAT"
+    },
+    "PortCheck": {
+      "display_name": "Проверка доступности сетевого порта",
+      "description": "Проверка доступности и открытости удаленного сетевого порта"
+    },
+    "ReceiveInput": {
+      "display_name": "Прием удаленных событий ввода",
+      "description": "Прием событий клавиатуры и мыши с удаленного устройства"
+    },
+    "SendEmail": {
+      "display_name": "Отправка электронной почты (SMTP)",
+      "description": "Отправка писем с HTML и вложениями по протоколу SMTP"
+    },
+    "SendInput": {
+      "display_name": "Отправка удаленных событий ввода",
+      "description": "Отправка событий мыши и клавиатуры на удаленный узел"
+    },
+    "VideoDownload": {
+      "display_name": "Загрузка потокового видео",
+      "description": "Загрузка потокового видео HLS/M3U8 с объединением в файл MP4"
+    },
+    "WebSocketConnect": {
+      "display_name": "Установка соединения WebSocket",
+      "description": "Установление полнодуплексного постоянного соединения WebSocket"
+    },
+    "WebSocketReceive": {
+      "display_name": "Прием сообщений WebSocket",
+      "description": "Прием входящего сообщения из канала WebSocket"
+    },
+    "WebSocketSend": {
+      "display_name": "Отправка сообщения WebSocket",
+      "description": "Мгновенная отправка текстового или JSON-сообщения через WebSocket"
+    }
+  }
+}

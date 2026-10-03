@@ -1,0 +1,111 @@
+{
+  "name": "网络请求与文件下载 (Network & Downloader)",
+  "description": "提供发送 HTTP 接口请求 (API)、大文件高速下载、WebSocket 实时长连接、网络状态检测与局域网文件互传功能",
+  "group": "网络通信",
+  "actions": {
+    "BtDownload": {
+      "display_name": "BT/种子下载 (BtDownload)",
+      "description": "通过 BT 种子文件或磁力链接高速下载网络资源"
+    },
+    "BtSeed": {
+      "display_name": "BT/种子做种分发 (BtSeed)",
+      "description": "将本地文件作为 BT 种子进行持续做种与分发共享"
+    },
+    "DomainQuery": {
+      "display_name": "域名解析查询 (DomainQuery)",
+      "description": "调用 DNS 解析服务，将目标域名查询解析为对应的 IP 地址与网络服务信息"
+    },
+    "ForwardProxy": {
+      "display_name": "正向代理服务 (ForwardProxy)",
+      "description": "启动高性能本地正向代理或隧道代理服务，支持多协议中继与用户鉴权"
+    },
+    "HttpDownload": {
+      "display_name": "HTTP 文件下载 (HttpDownload)",
+      "description": "通过 HTTP 网址下载文件，支持覆盖判断、超时设置与忽略证书校验"
+    },
+    "HttpGet": {
+      "display_name": "HTTP GET 请求 (HttpGet)",
+      "description": "发送标准 HTTP GET 请求并获取服务器返回的文本响应内容与状态信息"
+    },
+    "HttpHead": {
+      "display_name": "HTTP HEAD 请求 (HttpHead)",
+      "description": "发送标准 HTTP HEAD 请求，仅快速获取目标资源的响应头部元数据"
+    },
+    "HttpPost": {
+      "display_name": "HTTP POST 请求 (HttpPost)",
+      "description": "发送携带数据载荷的 HTTP POST 请求，支持 JSON、表单与纯文本等多种编码格式"
+    },
+    "HttpRequest": {
+      "display_name": "通用 HTTP 请求 (HttpRequest)",
+      "description": "综合 HTTP 客户端，支持任意请求方法、文件上传、自动重试、网络代理与状态断言"
+    },
+    "HttpWebhook": {
+      "display_name": "HTTP 回调监听 (HttpWebhook)",
+      "description": "在本地启动轻量级微服务，等待并捕获远程系统推送的 Webhook 回调通知"
+    },
+    "NetworkClose": {
+      "display_name": "关闭网络连接 (NetworkClose)",
+      "description": "安全释放已打开的网络连接句柄或代理服务资源"
+    },
+    "NetworkConnect": {
+      "display_name": "网络建立连接 (NetworkConnect)",
+      "description": "创建 TCP 或 UDP 客户端网络连接并注册到全局连接池"
+    },
+    "NetworkListen": {
+      "display_name": "网络服务监听 (NetworkListen)",
+      "description": "本地绑定并监听指定端口上的网络连接或入站数据报文"
+    },
+    "NetworkPing": {
+      "display_name": "网络连通性探测 (NetworkPing)",
+      "description": "跨平台探测目标主机的网络往返延迟 (RTT) 与连通可用性"
+    },
+    "NetworkReceive": {
+      "display_name": "网络数据接收 (NetworkReceive)",
+      "description": "从指定的网络连接中读取数据流或报文"
+    },
+    "NetworkSend": {
+      "display_name": "网络数据发送 (NetworkSend)",
+      "description": "向指定的网络连接写入并发送字节数据或文本"
+    },
+    "P2PHost": {
+      "display_name": "P2P 文件共享节点 (P2PHost)",
+      "description": "加入分布式 P2P 文件传输网络，与其他节点直接建立直连通道传输文件"
+    },
+    "P2PServer": {
+      "display_name": "P2P 信令与中继服务 (P2PServer)",
+      "description": "启动 P2P 节点发现与 NAT 打洞穿透信令服务器"
+    },
+    "PortCheck": {
+      "display_name": "端口可用性检测 (PortCheck)",
+      "description": "跨网络检测指定目标 IP 与端口的开放监听状态与握手耗时"
+    },
+    "ReceiveInput": {
+      "display_name": "接收远程输入事件 (ReceiveInput)",
+      "description": "监听并接收来自远程机器的键盘与鼠标控制事件"
+    },
+    "SendEmail": {
+      "display_name": "邮件发送 (SendEmail)",
+      "description": "通过标准 SMTP 协议发送包含 HTML 格式和文件附件的电子邮件"
+    },
+    "SendInput": {
+      "display_name": "发送远程输入事件 (SendInput)",
+      "description": "将本地键盘敲击或鼠标移动点击事件编码打包并发送到远程主机"
+    },
+    "VideoDownload": {
+      "display_name": "流媒体视频下载 (VideoDownload)",
+      "description": "解析并高速下载 HLS/M3U8 或在线流媒体视频片段并合并为完整 MP4"
+    },
+    "WebSocketConnect": {
+      "display_name": "WebSocket 建立长连接 (WebSocketConnect)",
+      "description": "连接远程 WebSocket 服务端并保持全双工持久通信"
+    },
+    "WebSocketReceive": {
+      "display_name": "WebSocket 接收消息 (WebSocketReceive)",
+      "description": "从已建立的 WebSocket 通道中等待并接收下一条推送消息"
+    },
+    "WebSocketSend": {
+      "display_name": "WebSocket 发送消息 (WebSocketSend)",
+      "description": "通过 WebSocket 通道即时发送文本或 JSON 消息到服务端"
+    }
+  }
+}

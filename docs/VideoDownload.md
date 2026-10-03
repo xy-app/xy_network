@@ -1,35 +1,49 @@
-# 流媒体视频下载 (VideoDownload)
+﻿# 流媒体视频下载 (VideoDownload)
 
-## 1. 功能概述
-`VideoDownload` 算子集成行业顶级流媒体下载利器 `yt-dlp`，通过 `pypm` 智能包管理沙箱在进程内加载执行，支持下载全球上千个视频/音频流媒体网站的内容，支持直接从主流浏览器无感抓取登录态 Cookie，支持格式转换与高清画质下载。
+高速解析并下载网页流媒体音视频，支持浏览器登录态 Cookie 读取与格式转码配置。
 
-## 2. 核心特性与工业痛点解决
-- **pypm 沙箱环境智能加载**：无需用户全局手动安装 Python 或配置复杂的环境变量，算子自动通过 `rust_runtime::pypm` 将 `yt-dlp` 安装到受保护的专用沙箱，并通过 PyO3 在进程内直接调用 `yt_dlp.YoutubeDL`，零外部子进程开销。
-- **免密/会员视频浏览器 Cookie 提取**：支持配置 `browser: "chrome"`、`"edge"` 或 `"firefox"`，直接从本机浏览器提取已登录的 Cookie，无需繁琐的抓包或手工导出 Cookie 文件，轻松下载会员专属高清视频。
-- **动态输出目录与模板命名**：支持直接指定保存文件夹，自动采用 `%(title)s.%(ext)s` 智能命名并自动规避非法文件名字符。
-- **高级定制参数传入**：支持在 `options` 中传入 JSON 格式的高级配置参数（如画质筛选、代理、字幕下载等）。
+## 运行参数
 
-## 3. 平台支持与权限
-- **支持平台**：`Windows` / `Linux` / `macOS` (跨平台通用)
-- **管理员权限**：`否` (标准用户权限)
+* **视频网页/流媒体地址 (URL) (`url`)**
+  * 类型: `string`
+  * 默认值: `"https://"`
+  * 描述: 待解析下载的视频页面或流媒体播放链接。
+* **保存目录或命名模板 (`output`)**
+  * 类型: `DirectoryPicker`
+  * 默认值: `""`
+  * 描述: 下载完成的音视频文件存放路径。
+* **高级选项 (JSON配置) (`options`)**
+  * 类型: `string`
+  * 默认值: `""`
+  * 描述: 自定义格式过滤与高级参数字典配置。
+* **Cookie 文件路径 (可选) (`cookiefile`)**
+  * 类型: `FilePicker`
+  * 默认值: `""`
+  * 描述: 用于会员或免登录验证的 Cookie 文件。
+* **提取 Cookie 的浏览器 (`browser`)**
+  * 类型: `string`
+  * 默认值: `"none"`
+  * 描述: 自动从本地已登录浏览器中提取会话凭据。可选值：`none`, `chrome`, `edge`, `firefox`。
+* **浏览器用户配置目录 (可选) (`profile_directory`)**
+  * 类型: `DirectoryPicker`
+  * 默认值: `""`
+  * 描述: 指定浏览器的多用户 Profile 文件夹路径。
 
-## 4. 参数说明
+## 输出
 
-| 属性名称 | 参数类型 | 默认值 | 说明 |
-| :--- | :--- | :--- | :--- |
-| `url` | `MixedType` | `"https://"` | 目标在线视频网页或流媒体播放地址 |
-| `output` | `MixedType` | `""` | 视频文件保存的目标文件夹或自定义文件名模板 |
-| `options` | `MixedType` | `""` | 附加高级配置选项 (JSON 字典格式) |
-| `cookiefile` | `MixedType` | `""` | 本地 Netscape 格式 Cookie 文本文件路径 |
-| `browser` | `MixedType` | `"none"` | 从本机浏览器自动提取 Cookie (`"chrome"`, `"edge"`, `"firefox"`, `"none"`) |
-| `profile_directory` | `MixedType` | `""` | 浏览器多账号配置目录路径 (可选) |
+* 类型: `string`
+* 描述: 视频下载与转码合成结果。
 
-## 5. 输出变量与上下文
-- **返回值**：成功下载的本地文件绝对路径。
-- **上下文变量**：
-  - `last_video_download_path`：下载完成的视频文件路径。
-  - `last_download_path`：通用下载文件路径。
+## 使用示例
 
-## 6. 典型应用场景
-- **舆情监测与视频自动化归档**：批量监测指定网页视频，自动抓取并归档到内部 NAS 存储。
-- **教学/会议录播视频离线备份**：自动化登录并批量下载远程录播课件。
+```json
+{
+  "tag": "VideoDownload",
+  "url": "https://www.bilibili.com/video/BV1xx411c7mD",
+  "output": "D:/videos/",
+  "options": "",
+  "cookiefile": "",
+  "browser": "edge",
+  "profile_directory": ""
+}
+```

@@ -1,0 +1,111 @@
+{
+  "name": "ネットワーク通信＆ダウンローダー (Network & Downloader)",
+  "description": "HTTP APIリクエスト、高速ファイルダウンロード、WebSocket通信、ネットワーク監視、P2P転送機能を提供します",
+  "group": "ネットワーク＆通信",
+  "actions": {
+    "BtDownload": {
+      "display_name": "BitTorrentダウンロード",
+      "description": "Torrentファイルやマグネットリンクからネットワークリソースを高速ダウンロードします"
+    },
+    "BtSeed": {
+      "display_name": "BitTorrentシーディング・配布",
+      "description": "ローカルファイルをTorrentシードとしてP2Pネットワークで配布・共有します"
+    },
+    "DomainQuery": {
+      "display_name": "DNSドメイン名前解決",
+      "description": "DNSサーバーに問い合わせを行い、ドメイン名をIPアドレスに解決します"
+    },
+    "ForwardProxy": {
+      "display_name": "フォワードプロキシサービス",
+      "description": "認証機能付きのローカルフォワードプロキシサーバーを起動します"
+    },
+    "HttpDownload": {
+      "display_name": "HTTPファイルダウンロード",
+      "description": "URLからファイルをダウンロードします（タイムアウトや証明書無視対応）"
+    },
+    "HttpGet": {
+      "display_name": "HTTP GETリクエスト",
+      "description": "標準的なHTTP GETリクエストを送信し、レスポンス内容とヘッダーを取得します"
+    },
+    "HttpHead": {
+      "display_name": "HTTP HEADリクエスト",
+      "description": "本文をダウンロードせずにレスポンスヘッダーのみを高速取得します"
+    },
+    "HttpPost": {
+      "display_name": "HTTP POSTリクエスト",
+      "description": "JSONやフォームデータを載せたHTTP POSTリクエストを送信します"
+    },
+    "HttpRequest": {
+      "display_name": "汎用HTTPリクエスト",
+      "description": "任意のメソッド、ファイル送信、リトライ、プロキシをサポートする高機能HTTPクライアント"
+    },
+    "HttpWebhook": {
+      "display_name": "HTTP Webhookリスナー",
+      "description": "外部システムからのWebhookコールバック通知を受信するローカルリスナー"
+    },
+    "NetworkClose": {
+      "display_name": "ネットワーク切断",
+      "description": "開いているTCP/UDPソケットやプロキシ接続を安全に閉じます"
+    },
+    "NetworkConnect": {
+      "display_name": "ネットワーク接続確立",
+      "description": "リモートホストとTCPまたはUDP接続を確立し、接続プールに登録します"
+    },
+    "NetworkListen": {
+      "display_name": "ネットワークサービス待機（Listen）",
+      "description": "指定したローカルポートで着信TCP/UDP接続を監視・待機します"
+    },
+    "NetworkPing": {
+      "display_name": "ネットワークPing・遅延計測",
+      "description": "ターゲットホストとの通信可否および往復レイテンシ（RTT）を測定します"
+    },
+    "NetworkReceive": {
+      "display_name": "ネットワークデータ受信",
+      "description": "接続済みのソケットから受信データストリームを読み取ります"
+    },
+    "NetworkSend": {
+      "display_name": "ネットワークデータ送信",
+      "description": "アクティブなソケットに対してバイト列またはテキストデータを送信します"
+    },
+    "P2PHost": {
+      "display_name": "P2Pファイル共有ノード",
+      "description": "分散型P2Pネットワークに参加し、ノード間で直接ファイル転送を行います"
+    },
+    "P2PServer": {
+      "display_name": "P2Pシグナリング＆リレーサーバー",
+      "description": "P2Pノード検出およびNAT越え（打洞）のためのシグナリングサーバーを起動します"
+    },
+    "PortCheck": {
+      "display_name": "ポート開放状態確認",
+      "description": "対象ホストの特定ポートの開放状態とハンドシェイク時間を検証します"
+    },
+    "ReceiveInput": {
+      "display_name": "リモート入力イベント受信",
+      "description": "リモート端末から送信されたマウス・キーボード操作を受信します"
+    },
+    "SendEmail": {
+      "display_name": "メール送信 (SMTP)",
+      "description": "SMTPプロトコルを用いてHTMLメールや添付ファイル付きメールを送信します"
+    },
+    "SendInput": {
+      "display_name": "リモート入力イベント送信",
+      "description": "ローカルのキーボードやマウス操作をシリアライズしてリモート端末へ送信します"
+    },
+    "VideoDownload": {
+      "display_name": "ストリーミング動画ダウンロード",
+      "description": "HLS/M3U8ストリーミング動画を解析・高速ダウンロードしてMP4に結合します"
+    },
+    "WebSocketConnect": {
+      "display_name": "WebSocket接続確立",
+      "description": "リモートWebSocketサーバーと全二重の持続的通信接続を確立します"
+    },
+    "WebSocketReceive": {
+      "display_name": "WebSocketメッセージ受信",
+      "description": "確立されたWebSocket接続から次のメッセージフレームを受信します"
+    },
+    "WebSocketSend": {
+      "display_name": "WebSocketメッセージ送信",
+      "description": "WebSocket経由でテキストまたはJSONメッセージをリアルタイム送信します"
+    }
+  }
+}

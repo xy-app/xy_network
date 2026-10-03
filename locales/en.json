@@ -1,0 +1,111 @@
+{
+  "name": "Network Requests & Downloader Suite (Network & Downloader)",
+  "description": "Provides HTTP REST requests, high-speed file downloading, WebSocket streaming, network probing, and P2P distribution",
+  "group": "Network & Download",
+  "actions": {
+    "BtDownload": {
+      "display_name": "BitTorrent Download",
+      "description": "Download network resources via BitTorrent torrent files or magnet links"
+    },
+    "BtSeed": {
+      "display_name": "BitTorrent Seeding & Distribution",
+      "description": "Seed and distribute local files across BitTorrent swarm"
+    },
+    "DomainQuery": {
+      "display_name": "DNS Domain Query",
+      "description": "Query DNS servers to resolve hostnames to IP addresses and records"
+    },
+    "ForwardProxy": {
+      "display_name": "Forward Proxy Service",
+      "description": "Launch high-performance local forward proxy server with authentication support"
+    },
+    "HttpDownload": {
+      "display_name": "HTTP File Download",
+      "description": "Download remote file over HTTP/HTTPS with timeout and overwrite options"
+    },
+    "HttpGet": {
+      "display_name": "HTTP GET Request",
+      "description": "Send standard HTTP GET request and retrieve response body and headers"
+    },
+    "HttpHead": {
+      "display_name": "HTTP HEAD Request",
+      "description": "Send HTTP HEAD request to check resource headers without downloading body"
+    },
+    "HttpPost": {
+      "display_name": "HTTP POST Request",
+      "description": "Send HTTP POST request with payload (JSON, form data, or raw text)"
+    },
+    "HttpRequest": {
+      "display_name": "General HTTP Request",
+      "description": "Full-featured HTTP client supporting custom methods, file uploads, retries, and proxy"
+    },
+    "HttpWebhook": {
+      "display_name": "HTTP Webhook Listener",
+      "description": "Listen for incoming Webhook notifications and trigger automation workflows"
+    },
+    "NetworkClose": {
+      "display_name": "Close Network Connection",
+      "description": "Safely close open TCP/UDP sockets, tunnels, or connection pool handles"
+    },
+    "NetworkConnect": {
+      "display_name": "Establish Network Connection",
+      "description": "Connect to remote host via TCP or UDP and register connection in pool"
+    },
+    "NetworkListen": {
+      "display_name": "Listen Network Service",
+      "description": "Bind and listen on local TCP/UDP port for incoming network packets"
+    },
+    "NetworkPing": {
+      "display_name": "Network Ping & Latency Probe",
+      "description": "Probe round-trip latency (RTT) and reachability to target host"
+    },
+    "NetworkReceive": {
+      "display_name": "Receive Network Data",
+      "description": "Read incoming byte streams or packets from active socket connection"
+    },
+    "NetworkSend": {
+      "display_name": "Send Network Data",
+      "description": "Write and send binary bytes or text packets over active socket"
+    },
+    "P2PHost": {
+      "display_name": "P2P File Sharing Node",
+      "description": "Participate in decentralized P2P swarm to transfer files directly between peers"
+    },
+    "P2PServer": {
+      "display_name": "P2P Signaling & Relay Server",
+      "description": "Start P2P peer discovery and NAT traversal signaling rendezvous server"
+    },
+    "PortCheck": {
+      "display_name": "Check Port Availability",
+      "description": "Probe whether a remote TCP/UDP port is open, closed, or firewalled"
+    },
+    "ReceiveInput": {
+      "display_name": "Receive Remote Input Event",
+      "description": "Receive serialized keyboard and mouse input events from remote machine"
+    },
+    "SendEmail": {
+      "display_name": "Send Email (SMTP)",
+      "description": "Send emails with HTML body and attachments via secure SMTP protocol"
+    },
+    "SendInput": {
+      "display_name": "Send Remote Input Event",
+      "description": "Serialize and send local keyboard/mouse input events to remote host"
+    },
+    "VideoDownload": {
+      "display_name": "Stream Video Download",
+      "description": "Parse and download HLS/M3U8 or stream video segments into single MP4 file"
+    },
+    "WebSocketConnect": {
+      "display_name": "WebSocket Connect",
+      "description": "Establish full-duplex persistent WebSocket connection to server"
+    },
+    "WebSocketReceive": {
+      "display_name": "WebSocket Receive Message",
+      "description": "Wait and receive incoming message frame from WebSocket channel"
+    },
+    "WebSocketSend": {
+      "display_name": "WebSocket Send Message",
+      "description": "Send text or JSON message immediately across WebSocket channel"
+    }
+  }
+}

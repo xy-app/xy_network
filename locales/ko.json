@@ -1,0 +1,111 @@
+{
+  "name": "네트워크 통신 및 다운로더 (Network & Downloader)",
+  "description": "HTTP 요청, 고속 파일 다운로드, WebSocket 실시간 통신, 네트워크 핑 및 P2P 파일 전송 기능을 제공합니다",
+  "group": "네트워크 및 다운로드",
+  "actions": {
+    "BtDownload": {
+      "display_name": "토렌트 다운로드 (BitTorrent)",
+      "description": "토렌트 파일이나 마그넷 링크를 통해 네트워크 리소스를 고속 다운로드합니다"
+    },
+    "BtSeed": {
+      "display_name": "토렌트 시딩 및 배포",
+      "description": "로컬 파일을 토렌트 시드로 배포하고 지속적으로 공유합니다"
+    },
+    "DomainQuery": {
+      "display_name": "DNS 도메인 조회",
+      "description": "DNS 서버를 쿼리하여 대상 도메인을 해당 IP 주소 및 레코드로 해석합니다"
+    },
+    "ForwardProxy": {
+      "display_name": "포워드 프록시 서비스",
+      "description": "인증을 지원하는 고성능 로컬 포워드 프록시 서버를 시작합니다"
+    },
+    "HttpDownload": {
+      "display_name": "HTTP 파일 다운로드",
+      "description": "HTTP/HTTPS 주소를 통해 파일을 다운로드하고 저장 옵션을 설정합니다"
+    },
+    "HttpGet": {
+      "display_name": "HTTP GET 요청",
+      "description": "표준 HTTP GET 요청을 전송하고 응답 데이터 및 상태를 수신합니다"
+    },
+    "HttpHead": {
+      "display_name": "HTTP HEAD 요청",
+      "description": "본문 다운로드 없이 리소스의 헤더 메타데이터만 신속하게 조회합니다"
+    },
+    "HttpPost": {
+      "display_name": "HTTP POST 요청",
+      "description": "JSON이나 폼 데이터 등의 페이로드를 담아 HTTP POST 요청을 전송합니다"
+    },
+    "HttpRequest": {
+      "display_name": "범용 HTTP 요청",
+      "description": "모든 HTTP 메서드, 파일 업로드, 재시도, 프록시를 지원하는 범용 클라이언트"
+    },
+    "HttpWebhook": {
+      "display_name": "HTTP 웹훅 리스너",
+      "description": "외부 시스템의 웹훅 호출을 대기하고 수신된 데이터를 워크플로우에 전달합니다"
+    },
+    "NetworkClose": {
+      "display_name": "네트워크 연결 종료",
+      "description": "열려 있는 TCP/UDP 소켓이나 네트워크 연결 풀 리소스를 안전하게 닫습니다"
+    },
+    "NetworkConnect": {
+      "display_name": "네트워크 연결 수립",
+      "description": "원격 호스트와 TCP 또는 UDP 연결을 설정하고 풀에 등록합니다"
+    },
+    "NetworkListen": {
+      "display_name": "네트워크 포트 수신 대기 (Listen)",
+      "description": "지정된 로컬 포트에서 들어오는 TCP/UDP 연결을 수신 대기합니다"
+    },
+    "NetworkPing": {
+      "display_name": "네트워크 핑 및 지연시간 측정",
+      "description": "대상 호스트의 네트워크 왕복 지연 시간(RTT)과 연결 상태를 측정합니다"
+    },
+    "NetworkReceive": {
+      "display_name": "네트워크 데이터 수신",
+      "description": "활성 네트워크 연결에서 들어오는 데이터 스트림을 읽습니다"
+    },
+    "NetworkSend": {
+      "display_name": "네트워크 데이터 전송",
+      "description": "활성화된 소켓을 통해 바이트 데이터나 텍스트 패킷을 전송합니다"
+    },
+    "P2PHost": {
+      "display_name": "P2P 파일 공유 노드",
+      "description": "분산 P2P 네트워크에 참여하여 피어 간에 파일을 직접 전송합니다"
+    },
+    "P2PServer": {
+      "display_name": "P2P 시그널링 및 릴레이 서버",
+      "description": "피어 탐색 및 NAT 홀펀칭을 지원하는 P2P 시그널링 서버를 시작합니다"
+    },
+    "PortCheck": {
+      "display_name": "네트워크 포트 가용성 확인",
+      "description": "대상 IP 및 포트가 열려 있는지 여부와 연결 시간을 검사합니다"
+    },
+    "ReceiveInput": {
+      "display_name": "원격 입력 이벤트 수신",
+      "description": "원격 컴퓨터로부터 키보드 및 마우스 입력 이벤트를 수신합니다"
+    },
+    "SendEmail": {
+      "display_name": "이메일 발송 (SMTP)",
+      "description": "SMTP 프로토콜을 사용하여 HTML 본문 및 파일 첨부 이메일을 발송합니다"
+    },
+    "SendInput": {
+      "display_name": "원격 입력 이벤트 전송",
+      "description": "로컬의 키보드나 마우스 조작 이벤트를 인코딩하여 원격 기기로 전송합니다"
+    },
+    "VideoDownload": {
+      "display_name": "스트리밍 동영상 다운로드",
+      "description": "HLS/M3U8 스트리밍 영상을 다운로드하고 단일 MP4 파일로 병합합니다"
+    },
+    "WebSocketConnect": {
+      "display_name": "WebSocket 장시간 연결",
+      "description": "원격 WebSocket 서버에 연결하여 전이중 지속 통신을 유지합니다"
+    },
+    "WebSocketReceive": {
+      "display_name": "WebSocket 메시지 수신",
+      "description": "수립된 WebSocket 채널에서 다음 푸시 메시지를 수신 대기합니다"
+    },
+    "WebSocketSend": {
+      "display_name": "WebSocket 메시지 전송",
+      "description": "WebSocket을 통해 텍스트 또는 JSON 메시지를 즉시 전송합니다"
+    }
+  }
+}

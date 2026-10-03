@@ -1,0 +1,111 @@
+{
+  "name": "Netzwerkanfragen & Downloader (Network & Downloader)",
+  "description": "Bietet HTTP-REST-Anfragen, schnellen Datei-Download, WebSocket-Streaming, Netzwerk-Pings und P2P-Freigabe",
+  "group": "Netzwerk & Download",
+  "actions": {
+    "BtDownload": {
+      "display_name": "BitTorrent-Download",
+      "description": "Lädt Dateien über BitTorrent-Dateien oder Magnet-Links herunter"
+    },
+    "BtSeed": {
+      "display_name": "BitTorrent-Seeding & Verteilung",
+      "description": "Gibt lokale Dateien als BitTorrent-Seed im P2P-Schwarm frei"
+    },
+    "DomainQuery": {
+      "display_name": "DNS-Domainabfrage",
+      "description": "Fragt DNS-Server ab, um Hostnamen in IP-Adressen aufzulösen"
+    },
+    "ForwardProxy": {
+      "display_name": "Forward-Proxy-Dienst",
+      "description": "Startet einen lokalen Forward-Proxy-Server mit Authentifizierung"
+    },
+    "HttpDownload": {
+      "display_name": "HTTP-Datei-Download",
+      "description": "Lädt Dateien über HTTP/HTTPS mit anpassbaren Optionen herunter"
+    },
+    "HttpGet": {
+      "display_name": "HTTP-GET-Anfrage",
+      "description": "Sendet HTTP-GET-Anfrage und ruft Antwortdaten und Status ab"
+    },
+    "HttpHead": {
+      "display_name": "HTTP-HEAD-Anfrage",
+      "description": "Sendet HTTP-HEAD-Anfrage, um Header ohne Inhalt abzufragen"
+    },
+    "HttpPost": {
+      "display_name": "HTTP-POST-Anfrage",
+      "description": "Sendet HTTP-POST-Anfrage mit Daten-Payload (JSON, Formular)"
+    },
+    "HttpRequest": {
+      "display_name": "Allgemeine HTTP-Anfrage",
+      "description": "Umfassender HTTP-Client mit benutzerdefinierten Methoden und Datei-Uploads"
+    },
+    "HttpWebhook": {
+      "display_name": "HTTP-Webhook-Listener",
+      "description": "Lauscht auf eingehende Webhook-Aufrufe und verarbeitet Ereignisse"
+    },
+    "NetworkClose": {
+      "display_name": "Netzwerkverbindung schließen",
+      "description": "Schließt geöffnete Netzwerk-Sockets und gibt Ressourcen frei"
+    },
+    "NetworkConnect": {
+      "display_name": "Netzwerkverbindung herstellen",
+      "description": "Stellt TCP- oder UDP-Verbindungen zu Remote-Hosts her"
+    },
+    "NetworkListen": {
+      "display_name": "Netzwerkdienst überwachen (Listen)",
+      "description": "Bindet und überwacht lokale Ports auf eingehende Verbindungen"
+    },
+    "NetworkPing": {
+      "display_name": "Netzwerk-Ping & Latenz-Prüfung",
+      "description": "Prüft die Erreichbarkeit und RTT-Latenz zu einem Zielhost"
+    },
+    "NetworkReceive": {
+      "display_name": "Netzwerkdaten empfangen",
+      "description": "Liest eingehende Datenströme aus der aktiven Verbindung"
+    },
+    "NetworkSend": {
+      "display_name": "Netzwerkdaten senden",
+      "description": "Sendet Bytes oder Textpakete über die aktive Verbindung"
+    },
+    "P2PHost": {
+      "display_name": "P2P-Dateifreigabeknoten",
+      "description": "Nimmt an dezentralen P2P-Netzwerken zur direkten Dateiübertragung teil"
+    },
+    "P2PServer": {
+      "display_name": "P2P-Signalisierungs- & Relay-Server",
+      "description": "Startet P2P-Signalisierungsserver für NAT-Traversal und Knotenerkennung"
+    },
+    "PortCheck": {
+      "display_name": "Port-Verfügbarkeit prüfen",
+      "description": "Überprüft, ob ein Remote-Port offen, geschlossen oder gefiltert ist"
+    },
+    "ReceiveInput": {
+      "display_name": "Remote-Eingabeereignis empfangen",
+      "description": "Empfängt Tastatur- und Mausereignisse von Remote-Systemen"
+    },
+    "SendEmail": {
+      "display_name": "E-Mail senden (SMTP)",
+      "description": "Sendet E-Mails mit HTML-Text und Anhängen über SMTP"
+    },
+    "SendInput": {
+      "display_name": "Remote-Eingabeereignis senden",
+      "description": "Sendet Tastatur- oder Mausereignisse an einen Remote-Host"
+    },
+    "VideoDownload": {
+      "display_name": "Streaming-Video-Download",
+      "description": "Lädt HLS/M3U8-Streaming-Videos herunter und fügt sie als MP4 zusammen"
+    },
+    "WebSocketConnect": {
+      "display_name": "WebSocket-Verbindung aufbauen",
+      "description": "Baut permanente Vollduplex-WebSocket-Verbindungen zum Server auf"
+    },
+    "WebSocketReceive": {
+      "display_name": "WebSocket-Nachricht empfangen",
+      "description": "Wartet und empfängt nächste Nachricht über WebSocket"
+    },
+    "WebSocketSend": {
+      "display_name": "WebSocket-Nachricht senden",
+      "description": "Sendet Text- oder JSON-Nachrichten über die WebSocket-Verbindung"
+    }
+  }
+}

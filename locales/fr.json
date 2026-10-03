@@ -1,0 +1,111 @@
+{
+  "name": "Requêtes réseau & Téléchargements (Network & Downloader)",
+  "description": "Fournit des requêtes HTTP, le téléchargement de fichiers, WebSocket, des pings réseau et le partage P2P",
+  "group": "Réseau & Téléchargement",
+  "actions": {
+    "BtDownload": {
+      "display_name": "Téléchargement BitTorrent",
+      "description": "Télécharge des ressources via fichiers torrent ou liens magnet"
+    },
+    "BtSeed": {
+      "display_name": "Partage & Seeding BitTorrent",
+      "description": "Partage et distribue des fichiers locaux via BitTorrent"
+    },
+    "DomainQuery": {
+      "display_name": "Résolution de domaine DNS",
+      "description": "Résout les noms d'hôtes en adresses IP via requêtes DNS"
+    },
+    "ForwardProxy": {
+      "display_name": "Service de proxy direct",
+      "description": "Démarre un proxy direct local haute performance avec authentification"
+    },
+    "HttpDownload": {
+      "display_name": "Téléchargement de fichier HTTP",
+      "description": "Télécharge des fichiers distants par HTTP/HTTPS avec options de reprise"
+    },
+    "HttpGet": {
+      "display_name": "Requête HTTP GET",
+      "description": "Envoie une requête HTTP GET et récupère le contenu et les en-têtes"
+    },
+    "HttpHead": {
+      "display_name": "Requête HTTP HEAD",
+      "description": "Envoie une requête HTTP HEAD pour inspecter les métadonnées sans le corps"
+    },
+    "HttpPost": {
+      "display_name": "Requête HTTP POST",
+      "description": "Envoie une requête HTTP POST avec charge utile (JSON, formulaire)"
+    },
+    "HttpRequest": {
+      "display_name": "Requête HTTP générale",
+      "description": "Client HTTP complet avec méthodes personnalisées et téléversement"
+    },
+    "HttpWebhook": {
+      "display_name": "Écouteur de Webhook HTTP",
+      "description": "Écoute les notifications Webhook entrantes et déclenche des actions"
+    },
+    "NetworkClose": {
+      "display_name": "Fermer la connexion réseau",
+      "description": "Ferme en toute sécurité les sockets et connexions ouverts"
+    },
+    "NetworkConnect": {
+      "display_name": "Établir la connexion réseau",
+      "description": "Établit une connexion TCP ou UDP vers un hôte distant"
+    },
+    "NetworkListen": {
+      "display_name": "Écouter sur le réseau (Listen)",
+      "description": "Lie et écoute sur un port TCP/UDP local les connexions entrantes"
+    },
+    "NetworkPing": {
+      "display_name": "Ping réseau & Mesure de latence",
+      "description": "Mesure la latence aller-retour (RTT) et l'accessibilité de l'hôte"
+    },
+    "NetworkReceive": {
+      "display_name": "Recevoir des données réseau",
+      "description": "Lit les flux de données entrants sur la connexion réseau active"
+    },
+    "NetworkSend": {
+      "display_name": "Envoyer des données réseau",
+      "description": "Envoie des octets ou du texte sur le socket réseau actif"
+    },
+    "P2PHost": {
+      "display_name": "Nœud de partage P2P",
+      "description": "Rejoint un réseau P2P pour transférer des fichiers directement entre pairs"
+    },
+    "P2PServer": {
+      "display_name": "Serveur de signalisation & relais P2P",
+      "description": "Démarre un serveur de signalisation pour la traversée NAT et la découverte de pairs"
+    },
+    "PortCheck": {
+      "display_name": "Vérifier la disponibilité d'un port",
+      "description": "Vérifie si un port distant est ouvert ou bloqué par pare-feu"
+    },
+    "ReceiveInput": {
+      "display_name": "Recevoir un événement de saisie distant",
+      "description": "Reçoit des événements clavier et souris d'une machine distante"
+    },
+    "SendEmail": {
+      "display_name": "Envoyer un e-mail (SMTP)",
+      "description": "Envoie des e-mails avec corps HTML et pièces jointes via SMTP"
+    },
+    "SendInput": {
+      "display_name": "Envoyer un événement de saisie distant",
+      "description": "Sérialise et transmet des événements de saisie vers un hôte distant"
+    },
+    "VideoDownload": {
+      "display_name": "Téléchargement de vidéo en streaming",
+      "description": "Télécharge des flux HLS/M3U8 et les fusionne en un fichier MP4"
+    },
+    "WebSocketConnect": {
+      "display_name": "Connexion WebSocket",
+      "description": "Établit une connexion WebSocket bidirectionnelle persistante"
+    },
+    "WebSocketReceive": {
+      "display_name": "Recevoir un message WebSocket",
+      "description": "Attend et reçoit le message suivant sur le canal WebSocket"
+    },
+    "WebSocketSend": {
+      "display_name": "Envoyer un message WebSocket",
+      "description": "Envoie immédiatement un message texte ou JSON via WebSocket"
+    }
+  }
+}
